@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cppdaghlt4fy8"
-path="res://.godot/imported/slice2.png-8962adc42fc2a97ebec01a421f34be7c.ctex"
+uid="uid://clonyx36hochs"
+path="res://.godot/imported/slice_med.png-514f17d2bf5c3aff950c94619fbe380b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://the-wheel-godot/WHEEL/Assets/slice2.png"
-dest_files=["res://.godot/imported/slice2.png-8962adc42fc2a97ebec01a421f34be7c.ctex"]
+source_file="res://the-wheel-godot/WHEEL/Assets/wheel-simple/slice_med.png"
+dest_files=["res://.godot/imported/slice_med.png-514f17d2bf5c3aff950c94619fbe380b.ctex"]
 
 [params]
 
