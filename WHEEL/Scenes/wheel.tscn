@@ -1,14 +1,14 @@
 [gd_scene load_steps=10 format=3 uid="uid://ynmfrkjnnm6r"]
 
-[ext_resource type="Script" path="res://WHEEL/Scenes/wheel.gd" id="1_jnbfk"]
-[ext_resource type="Texture2D" uid="uid://c1j3quyppjqes" path="res://WHEEL/Assets/slice1.png" id="1_rvseo"]
-[ext_resource type="Texture2D" uid="uid://cppdaghlt4fy8" path="res://WHEEL/Assets/slice2.png" id="2_r4wyp"]
-[ext_resource type="Texture2D" uid="uid://b6y8i47s86f1x" path="res://WHEEL/Assets/underlay.png" id="2_vylpq"]
-[ext_resource type="Texture2D" uid="uid://4xlnewm0epk1" path="res://WHEEL/Assets/slice3.png" id="3_t336c"]
-[ext_resource type="Texture2D" uid="uid://c7ww4wuauv30k" path="res://WHEEL/Assets/wheel.png" id="3_vh1r5"]
-[ext_resource type="Texture2D" uid="uid://d0jkmts3wkr4g" path="res://WHEEL/Assets/slice4.png" id="4_7oalj"]
-[ext_resource type="Texture2D" uid="uid://bscm5ijuexsrm" path="res://WHEEL/Assets/selector.png" id="4_hhpxx"]
-[ext_resource type="Texture2D" uid="uid://d0fncul2rs35d" path="res://WHEEL/Assets/cover.png" id="9_kpo83"]
+[ext_resource type="Script" path="res://the-wheel-godot/WHEEL/Scenes/wheel.gd" id="1_jnbfk"]
+[ext_resource type="Texture2D" uid="uid://c1j3quyppjqes" path="res://the-wheel-godot/WHEEL/Assets/slice1.png" id="1_rvseo"]
+[ext_resource type="Texture2D" uid="uid://cppdaghlt4fy8" path="res://the-wheel-godot/WHEEL/Assets/slice2.png" id="2_r4wyp"]
+[ext_resource type="Texture2D" uid="uid://b6y8i47s86f1x" path="res://the-wheel-godot/WHEEL/Assets/underlay.png" id="2_vylpq"]
+[ext_resource type="Texture2D" uid="uid://4xlnewm0epk1" path="res://the-wheel-godot/WHEEL/Assets/slice3.png" id="3_t336c"]
+[ext_resource type="Texture2D" uid="uid://c7ww4wuauv30k" path="res://the-wheel-godot/WHEEL/Assets/wheel.png" id="3_vh1r5"]
+[ext_resource type="Texture2D" uid="uid://d0jkmts3wkr4g" path="res://the-wheel-godot/WHEEL/Assets/slice4.png" id="4_7oalj"]
+[ext_resource type="Texture2D" uid="uid://bscm5ijuexsrm" path="res://the-wheel-godot/WHEEL/Assets/selector.png" id="4_hhpxx"]
+[ext_resource type="Texture2D" uid="uid://d0fncul2rs35d" path="res://the-wheel-godot/WHEEL/Assets/cover.png" id="9_kpo83"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 

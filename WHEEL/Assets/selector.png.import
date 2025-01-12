@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bscm5ijuexsrm"
-path="res://.godot/imported/selector.png-5433e8879180a62f24c1c6dc434f4665.ctex"
+path="res://.godot/imported/selector.png-227ec1d4dc3d7c1f02bf70845f96b6d6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://WHEEL/Assets/selector.png"
-dest_files=["res://.godot/imported/selector.png-5433e8879180a62f24c1c6dc434f4665.ctex"]
+source_file="res://the-wheel-godot/WHEEL/Assets/selector.png"
+dest_files=["res://.godot/imported/selector.png-227ec1d4dc3d7c1f02bf70845f96b6d6.ctex"]
 
 [params]
 
