@@ -1,0 +1,279 @@
+[gd_scene load_steps=10 format=3 uid="uid://ynmfrkjnnm6r"]
+
+[ext_resource type="Script" path="res://WHEEL/Scenes/wheel.gd" id="1_jnbfk"]
+[ext_resource type="Texture2D" uid="uid://c1j3quyppjqes" path="res://WHEEL/Assets/slice1.png" id="1_rvseo"]
+[ext_resource type="Texture2D" uid="uid://cppdaghlt4fy8" path="res://WHEEL/Assets/slice2.png" id="2_r4wyp"]
+[ext_resource type="Texture2D" uid="uid://b6y8i47s86f1x" path="res://WHEEL/Assets/underlay.png" id="2_vylpq"]
+[ext_resource type="Texture2D" uid="uid://4xlnewm0epk1" path="res://WHEEL/Assets/slice3.png" id="3_t336c"]
+[ext_resource type="Texture2D" uid="uid://c7ww4wuauv30k" path="res://WHEEL/Assets/wheel.png" id="3_vh1r5"]
+[ext_resource type="Texture2D" uid="uid://d0jkmts3wkr4g" path="res://WHEEL/Assets/slice4.png" id="4_7oalj"]
+[ext_resource type="Texture2D" uid="uid://bscm5ijuexsrm" path="res://WHEEL/Assets/selector.png" id="4_hhpxx"]
+[ext_resource type="Texture2D" uid="uid://d0fncul2rs35d" path="res://WHEEL/Assets/cover.png" id="9_kpo83"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="Wheel" type="Control" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 3
+anchors_preset = 0
+scale = Vector2(2, 2)
+script = ExtResource("1_jnbfk")
+
+[node name="slice_gimbal" type="Control" parent="Wheel"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -6.28319
+pivot_offset = Vector2(32, 32)
+
+[node name="slice1" type="TextureRect" parent="Wheel/slice_gimbal"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("1_rvseo")
+
+[node name="slice2" type="TextureRect" parent="Wheel/slice_gimbal"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5708
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("2_r4wyp")
+
+[node name="slice3" type="TextureRect" parent="Wheel/slice_gimbal"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 3.14159
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("3_t336c")
+
+[node name="slice4" type="TextureRect" parent="Wheel/slice_gimbal"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 4.71239
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("4_7oalj")
+
+[node name="underlay" type="TextureRect" parent="Wheel/slice_gimbal"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("2_vylpq")
+
+[node name="wheel" type="Control" parent="Wheel"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="wheel" type="TextureRect" parent="Wheel/wheel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("3_vh1r5")
+
+[node name="covers" type="Control" parent="Wheel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="cover_up" type="TextureRect" parent="Wheel/covers"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0.658824)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("9_kpo83")
+
+[node name="cover_right" type="TextureRect" parent="Wheel/covers"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0.658824)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5708
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("9_kpo83")
+
+[node name="cover_down" type="TextureRect" parent="Wheel/covers"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0.658824)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 3.14159
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("9_kpo83")
+
+[node name="cover_left" type="TextureRect" parent="Wheel/covers"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0.658824)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 4.71239
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("9_kpo83")
+
+[node name="selector" type="TextureRect" parent="Wheel"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -6.28319
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("4_hhpxx")
