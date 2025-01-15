@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6y8i47s86f1x"
-path="res://.godot/imported/underlay.png-c1035f9426052adcd261534155e58b44.ctex"
+uid="uid://dme8hfvvw80kb"
+path="res://.godot/imported/underlay.png-25b14b59fdc226ca5560689fd5c64178.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://the-wheel-godot/WHEEL/Assets/underlay.png"
-dest_files=["res://.godot/imported/underlay.png-c1035f9426052adcd261534155e58b44.ctex"]
+source_file="res://the-wheel-godot/WHEEL/Assets/wheel-simple/underlay.png"
+dest_files=["res://.godot/imported/underlay.png-25b14b59fdc226ca5560689fd5c64178.ctex"]
 
 [params]
 
