@@ -19,14 +19,12 @@
 	set(value):
 		wheel_size = value
 		if Engine.is_editor_hint(): self.custom_minimum_size = wheel_size
-
 ## specifies the wheel's scale.
 @export_range(0,5,0.1) var wheel_scale:float = 1:
 	set(value):
 		wheel_scale = value
 		self.scale.x = wheel_scale
 		self.scale.y = wheel_scale
-
 @export_group("Animations")
 ## controls the animation of the rotation of the wheel.
 enum TweenType {
@@ -77,13 +75,10 @@ enum TweenType {
 #region Onready Variables
 ## our triangles of varying sizes.
 @onready var slices:Array[Control] = [%slice1,%slice2,%slice3,%slice4]
-
 ## our covers to indicate that the selection has already been chosen.
 @onready var covers:Array[Control] = [%cover_up,%cover_down,%cover_left,%cover_right]
-
 ## a reference to our selector node.
 @onready var selector:Control = %wheel_select
-
 ## a reference to our slice gimbal.
 @onready var slice_gimbal:Control = %slice_gimbal
 #endregion
@@ -91,30 +86,22 @@ enum TweenType {
 #region Internal Variables
 ## enum dictating current state of wheel.
 enum WheelState {AWAITING_SELECTION,ROTATING,NO_INPUT}
-
 ## variable containing current state of wheel.
 var current_wheel_state:WheelState = WheelState.AWAITING_SELECTION
-
 ## where the selector currently is.
 var current_direction:int = 0
 ## base score values for the slices
 var base_numbers:Array[int] = [-2,-1,1,2]
-
 ## slice value multiplier
 var slice_value_multiplier:Array[int] = [1,2,3,4]
-
 ## assigns values to directions; format is as follows: [UP,RIGHT,DOWN,LEFT]
 var current_value_mappings:Array[int] = [0,90,180,270]
-
 ## how many selections have been chosen
 var current_num_selections:int = 0
-
 ## how many selections are allowed; default is 4.
 var target_selections:int = 4
-
 ## a WheelPayload object containing the wheel's value
 var _current_value:WheelPayload
-
 ## rotation value (in degrees) for the wheel directions. [UP,RIGHT,DOWN,LEFT]
 const DIRECTIONS:Array[int] = [0,90,180,270]
 #endregion
@@ -122,13 +109,10 @@ const DIRECTIONS:Array[int] = [0,90,180,270]
 #region Signals
 ## emitted when a new direction is selected.
 signal new_dir_chosen
-
 ## emitted when the gimbal begins to be rotated.
 signal rotation_started
-
 ## emitted when the gimbal is finished rotating.
 signal rotation_finished
-
 ## emitted when the puzzle is complete.
 signal puzzle_finished
 #endregion
@@ -141,7 +125,6 @@ func _ready()->void:
 
 # handles input for our minigame
 func _unhandled_input(_event: InputEvent) -> void:
-	
 	# if up, down, left or right is pressed, process that direction input
 	if Input.is_action_just_pressed("ui_up"):
 		current_direction=0
@@ -170,36 +153,25 @@ func _unhandled_input(_event: InputEvent) -> void:
 func process_direction_input(direction:int,debug=false)->void:
 	#print debug info if enabled
 	if debug: print("moving selector to "+str(direction)+" degrees"+"\n")
-	
-	
-	
-	
 	#move our selector to the direction
 	selector.rotation_degrees = direction
-	
+	#set the current wheel value to our slice and base values
 	_current_value = get_current_wheel_value()
-	print(_current_value.base_value)
-	print(_current_value.slice_value)
-	print(_current_value.total_value)
+	#emit new direction chosen signal
 	new_dir_chosen.emit()
 
 ## confirms that the current selection has been chosen
 func process_confirm_input(direction:int,debug=false)->void:
-	
 	# if the wheel isn't ready, stop the confirmation process
 	if current_wheel_state != WheelState.AWAITING_SELECTION:
 		return
-	
 	# iterate through our cover; if the rotation of the cover is equal to our
 	# selection's rotation, then we know we have the right cover. 
 	for x in %covers.get_children(): 
-		
 		# rounded because I was getting weird floating point results. 
 		if int(round(x.rotation_degrees)) == direction:
-			
 			# prints debug if enabled in signature
 			if debug: print("selecting "+str(direction)+" degrees\n")
-			
 			# if the cover is already visible, then it's been selected before.
 			if x.visible: return 
 			# set cover to visible
@@ -208,6 +180,7 @@ func process_confirm_input(direction:int,debug=false)->void:
 			current_num_selections += 1 
 			# rotate the gimbal
 			rotate_slices()
+			# exit out if the cover has been found
 			return 
 
 ## rotates the slice gimbal +90 degrees
@@ -217,52 +190,45 @@ func rotate_slices(debug=false)->void:
 		return
 	# prints debug info if enabled
 	if debug: print("rotating gimbal +90 degrees\n")
-	
+	# set the current wheel state to show it is rotating
 	current_wheel_state = WheelState.ROTATING
+	# emit rotation started signal
 	rotation_started.emit()
+	# create our tween object we will use for the animation
 	var tween:Tween = create_tween()
-	# rotates our gimbal using a tween; read tween documentation for controlling the animation.
+	# sets our transition type to our enum
 	tween.set_trans(int(tween_type))
+	# rotates gimbal for our specified time in anim time
 	tween.tween_property(%slice_gimbal, "rotation_degrees",%slice_gimbal.rotation_degrees+90,anim_time)
+	# runs the end_check function when the tween is done
 	tween.finished.connect(end_check)
 
 ## this function resets the minigame.
 func reset()->void:
-
 	# ensures that godot will randomize the shuffle of the mappings
 	randomize()
-	
 	# remove this if you don't want the selector to reset up every time
 	%wheel_select.rotation_degrees = 0
-	
 	# resets gimbal
 	%slice_gimbal.rotation_degrees = 0
-
 	# resets number of selections that have been chosen
 	current_num_selections = 0
-	
 	# hides the covers
 	for x in covers: x.visible = false
-	
-	
+	# chooses a random order for our value mappings
 	current_value_mappings.shuffle()
-	# sets the slice direction to the mapping
-	
+	# sets the slice rotations to our value mappings
 	for x in current_value_mappings.size():
 		slices[x].rotation_degrees = current_value_mappings[x]
-	
+	# assigns the slice value to the direction of the corresponding slice
 	for x in DIRECTIONS.size():
 		for j in current_value_mappings.size():
 			if DIRECTIONS[x] == current_value_mappings[j]:
 				slice_value_multiplier[x] = x+1
-	
 	# shuffles base numbers so each segment of wheel associates with 
 	# a random value
 	base_numbers.shuffle()
-	print(current_value_mappings)
-	print(base_numbers)
-	print(slice_value_multiplier)
-	
+	# sets our current wheel value
 	_current_value = get_current_wheel_value()
 	# sets the current wheel state to awaiting a selection
 	current_wheel_state = WheelState.AWAITING_SELECTION
@@ -281,9 +247,13 @@ func end_check()->void:
 
 ## returns the wheel value
 func get_current_wheel_value()->WheelPayload:
+	# create a new wheelpayload object
 	var wp = WheelPayload.new()
+	# for every value in our value mappings...
 	for x in current_value_mappings.size():
+		# if the selector's current direction is equal to our value mapping
 		if current_direction == current_value_mappings[x]:
+			# set our values
 			wp.base_value = base_numbers[x]
 			wp.slice_value = slice_value_multiplier[x]
 			wp.total_value = wp.base_value * wp.slice_value
@@ -291,6 +261,7 @@ func get_current_wheel_value()->WheelPayload:
 #endregion
 
 #region helper functions
+# this is all UI stuff. I got weird errors if I didn't split up the selector and overlay etc pls don't judge me.
 func _update_slices_ui(new_textures:Array[Texture2D])->void:
 	for x in slices.size():
 		slices[x].texture = new_textures[x]
