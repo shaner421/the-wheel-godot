@@ -103,7 +103,7 @@ var base_numbers:Array[int] = [-2,-1,1,2]
 ## slice value multiplier
 var slice_value_multiplier:Array[int] = [1,2,3,4]
 
-## assigns values to directions; format is as follows: [UP,DOWN,LEFT,RIGHT]
+## assigns values to directions; format is as follows: [UP,RIGHT,DOWN,LEFT]
 var current_value_mappings:Array[int] = [0,180,270,90]
 
 ## how many selections have been chosen
@@ -112,16 +112,16 @@ var current_num_selections:int = 0
 ## how many selections are allowed; default is 4.
 var target_selections:int = 4
 
-## 
+## a WheelPayload object containing the wheel's value
 var _current_value:WheelPayload
 
-## rotation value (in degrees) for the wheel directions. [UP,DOWN,LEFT,RIGHT]
-const DIRECTIONS:Array[int] = [0,180,270,90]
+## rotation value (in degrees) for the wheel directions. [UP,RIGHT,DOWN,LEFT]
+const DIRECTIONS:Array[int] = [0,90,180,270]
 #endregion
 
 #region Signals
 ## emitted when a new direction is selected.
-#signal new_dir_chosen
+signal new_dir_chosen
 
 ## emitted when the gimbal begins to be rotated.
 signal rotation_started
@@ -145,16 +145,16 @@ func _unhandled_input(_event: InputEvent) -> void:
 	# if up, down, left or right is pressed, process that direction input
 	if Input.is_action_just_pressed("ui_up"):
 		current_direction=0
-		process_direction_input(current_direction,true)
+		process_direction_input(current_direction)
 	if Input.is_action_just_pressed("ui_down"):
 		current_direction=180
-		process_direction_input(current_direction,true)
+		process_direction_input(current_direction)
 	if Input.is_action_just_pressed("ui_left"):
 		current_direction=270
-		process_direction_input(current_direction,true)
+		process_direction_input(current_direction)
 	if Input.is_action_just_pressed("ui_right"):
 		current_direction=90
-		process_direction_input(current_direction,true)
+		process_direction_input(current_direction)
 	
 	# if tab is pressed, rotate the slices
 	if Input.is_action_just_pressed("ui_text_completion_replace"):
@@ -168,10 +168,14 @@ func _unhandled_input(_event: InputEvent) -> void:
 #region Custom Functions
 ## processes the input direction and moves the selector to that direction.
 func process_direction_input(direction:int,debug=false)->void:
-	for x in current_value_mappings.size():
-		print(current_value_mappings[x])
 	#print debug info if enabled
 	if debug: print("moving selector to "+str(direction)+" degrees"+"\n")
+	
+	_current_value = get_current_wheel_value()
+	print(_current_value.base_value)
+	print(_current_value.slice_value)
+	print(_current_value.total_value)
+	new_dir_chosen.emit()
 	
 	#move our selector to the direction
 	selector.rotation_degrees = direction
@@ -200,7 +204,8 @@ func process_confirm_input(direction:int,debug=false)->void:
 			# set the number of selections +=1
 			current_num_selections += 1 
 			# rotate the gimbal
-			rotate_slices() 
+			rotate_slices()
+			return 
 
 ## rotates the slice gimbal +90 degrees
 func rotate_slices(debug=false)->void:
@@ -236,12 +241,24 @@ func reset()->void:
 	# hides the covers
 	for x in covers: x.visible = false
 	
-	# shuffles the slice directions
-	current_value_mappings.shuffle()
 	
+	current_value_mappings.shuffle()
 	# sets the slice direction to the mapping
 	for x in slices.size():
 		slices[x].rotation_degrees = current_value_mappings[x]
+	
+	for i in DIRECTIONS.size():
+		for j in current_value_mappings.size():
+			if DIRECTIONS[i]==current_value_mappings[j]:
+				slice_value_multiplier[i] = j+1
+		
+	
+	# shuffles base numbers so each segment of wheel associates with 
+	# a random value
+	base_numbers.shuffle()
+	#print(current_value_mappings)
+	#print(base_numbers)
+	#print(slice_value_multiplier)
 	
 	_current_value = get_current_wheel_value()
 	# sets the current wheel state to awaiting a selection
@@ -263,10 +280,10 @@ func end_check()->void:
 func get_current_wheel_value()->WheelPayload:
 	var wp = WheelPayload.new()
 	for i in current_value_mappings:
-		if selector.rotation_degrees == i:
+		if int(selector.rotation_degrees) == i:
 			for j in slices.size():
-				if slices[j].rotation_degrees == j:
-					wp.base_value = 0
+				if int(slices[j].rotation_degrees) == i:
+					wp.base_value = base_numbers[j]
 					wp.slice_value = slice_value_multiplier[j]
 					wp.total_value = wp.base_value * wp.slice_value
 				

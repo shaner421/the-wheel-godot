@@ -57,6 +57,7 @@ offset_right = 128.0
 offset_bottom = 128.0
 grow_horizontal = 2
 grow_vertical = 2
+rotation = 3.14159
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("2_hflln")
 
@@ -75,7 +76,7 @@ offset_right = 128.0
 offset_bottom = 128.0
 grow_horizontal = 2
 grow_vertical = 2
-rotation = 3.14159
+rotation = 4.71239
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("3_tc8cr")
 
@@ -113,7 +114,6 @@ offset_right = 128.0
 offset_bottom = 128.0
 grow_horizontal = 2
 grow_vertical = 2
-rotation = 4.71239
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("5_w8unc")
 
