@@ -104,7 +104,7 @@ var base_numbers:Array[int] = [-2,-1,1,2]
 var slice_value_multiplier:Array[int] = [1,2,3,4]
 
 ## assigns values to directions; format is as follows: [UP,RIGHT,DOWN,LEFT]
-var current_value_mappings:Array[int] = [0,180,270,90]
+var current_value_mappings:Array[int] = [0,90,180,270]
 
 ## how many selections have been chosen
 var current_num_selections:int = 0
@@ -171,14 +171,17 @@ func process_direction_input(direction:int,debug=false)->void:
 	#print debug info if enabled
 	if debug: print("moving selector to "+str(direction)+" degrees"+"\n")
 	
+	
+	
+	
+	#move our selector to the direction
+	selector.rotation_degrees = direction
+	
 	_current_value = get_current_wheel_value()
 	print(_current_value.base_value)
 	print(_current_value.slice_value)
 	print(_current_value.total_value)
 	new_dir_chosen.emit()
-	
-	#move our selector to the direction
-	selector.rotation_degrees = direction
 
 ## confirms that the current selection has been chosen
 func process_confirm_input(direction:int,debug=false)->void:
@@ -244,21 +247,21 @@ func reset()->void:
 	
 	current_value_mappings.shuffle()
 	# sets the slice direction to the mapping
-	for x in slices.size():
+	
+	for x in current_value_mappings.size():
 		slices[x].rotation_degrees = current_value_mappings[x]
 	
-	for i in DIRECTIONS.size():
+	for x in DIRECTIONS.size():
 		for j in current_value_mappings.size():
-			if DIRECTIONS[i]==current_value_mappings[j]:
-				slice_value_multiplier[i] = j+1
-		
+			if DIRECTIONS[x] == current_value_mappings[j]:
+				slice_value_multiplier[x] = x+1
 	
 	# shuffles base numbers so each segment of wheel associates with 
 	# a random value
 	base_numbers.shuffle()
-	#print(current_value_mappings)
-	#print(base_numbers)
-	#print(slice_value_multiplier)
+	print(current_value_mappings)
+	print(base_numbers)
+	print(slice_value_multiplier)
 	
 	_current_value = get_current_wheel_value()
 	# sets the current wheel state to awaiting a selection
@@ -279,14 +282,11 @@ func end_check()->void:
 ## returns the wheel value
 func get_current_wheel_value()->WheelPayload:
 	var wp = WheelPayload.new()
-	for i in current_value_mappings:
-		if int(selector.rotation_degrees) == i:
-			for j in slices.size():
-				if int(slices[j].rotation_degrees) == i:
-					wp.base_value = base_numbers[j]
-					wp.slice_value = slice_value_multiplier[j]
-					wp.total_value = wp.base_value * wp.slice_value
-				
+	for x in current_value_mappings.size():
+		if current_direction == current_value_mappings[x]:
+			wp.base_value = base_numbers[x]
+			wp.slice_value = slice_value_multiplier[x]
+			wp.total_value = wp.base_value * wp.slice_value
 	return wp
 #endregion
 
