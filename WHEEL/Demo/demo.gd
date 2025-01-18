@@ -104,10 +104,11 @@ func _play_music(music:AudioStream) -> void:
 	bg_msc.stream = music
 	bg_msc.pitch_scale = 1.02
 	bg_msc.volume_db = -30
-	self.add_child(bg_msc)
+	if bg_msc != null:
+		self.add_child(bg_msc)
 	bg_msc.play()
 	bg_msc.finished.connect(func(): 
-		get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(1.0).timeout
 		_play_music(background_music)
 		)
 

@@ -127,6 +127,7 @@ func _ready()->void:
 
 # handles input for our minigame
 func _unhandled_input(_event: InputEvent) -> void:
+	if _state != WheelState.AWAITING_SELECTION: return
 	# if space is pressed, confirm selection
 	if Input.is_action_just_pressed("ui_accept"):
 		process_confirm_input(current_direction)
