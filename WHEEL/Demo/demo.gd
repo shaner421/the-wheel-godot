@@ -4,7 +4,7 @@ extends Control
 
 
 #region Onready Variables
-@onready var wheel = %WHEEL
+@onready var wheel:Control = %WHEEL
 #endregion
 
 #region Internal Variables
@@ -18,7 +18,7 @@ var current_wheel_value:int = 0
 #region Built-In Functions
 func _ready():
 	# connects the new dir chosen signal to a lambda function that plays the selector sound 
-	wheel.new_dir_selected.connect(func():if wheel.current_num_selections != wheel.target_selections: _play_sound(select_sound))
+	wheel.new_dir_selected.connect(func():if wheel.num_selections != wheel.target_selections: _play_sound(select_sound))
 	# connects our new dir chosen signal to the update wheel value function
 	wheel.new_dir_chosen.connect(update_wheel_value)
 	# connects the dir confirmed signal to a lambda function that plays the confirm sound
@@ -41,10 +41,10 @@ func end_check():
 func update_text()->void:
 	var slice = "Slice Value: "+str(wheel._current_value.slice_value)
 	var base = "Base Value: "+str(wheel._current_value.base_value)
-	var selections = "Number of Selections: "+str(wheel.current_num_selections)
+	var selections = "Number of Selections: "+str(wheel.num_selections)
 	var bases = "Base Values: "+str(wheel.base_numbers)
 	var value_mappings = "Value Mappings: "+str(wheel.current_value_mappings)
-	var slice_multipliers = "Slice Multipliers: "+str(wheel.slice_value_multiplier)
+	var slice_multipliers = "Slice Multipliers: "+str(wheel.slice_values)
 	$"text/wheel value".text = "Wheel value: "+str(current_wheel_value)
 	$"text/slice value".text = slice
 	$"text/base value".text = base

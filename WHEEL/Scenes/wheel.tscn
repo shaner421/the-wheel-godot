@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://ynmfrkjnnm6r"]
 
 [ext_resource type="Script" path="res://the-wheel-godot/WHEEL/Scenes/wheel.gd" id="1_jnbfk"]
-[ext_resource type="Texture2D" uid="uid://debbpyg22eqqv" path="res://the-wheel-godot/WHEEL/Assets/wheel-simple/slice1.png" id="2_hflln"]
-[ext_resource type="Texture2D" uid="uid://clonyx36hochs" path="res://the-wheel-godot/WHEEL/Assets/wheel-simple/slice2.png" id="3_tc8cr"]
-[ext_resource type="Texture2D" uid="uid://ck848hxjovb0v" path="res://the-wheel-godot/WHEEL/Assets/wheel-simple/slice3.png" id="4_lnuxd"]
-[ext_resource type="Texture2D" uid="uid://be6o6o22cakw3" path="res://the-wheel-godot/WHEEL/Assets/wheel-simple/slice4.png" id="5_w8unc"]
-[ext_resource type="Texture2D" uid="uid://dme8hfvvw80kb" path="res://the-wheel-godot/WHEEL/Assets/wheel-simple/underlay.png" id="6_cgp5b"]
-[ext_resource type="Texture2D" uid="uid://c1dsywoovggy1" path="res://the-wheel-godot/WHEEL/Assets/wheel-simple/overlay.png" id="7_kuksd"]
-[ext_resource type="Texture2D" uid="uid://dgv35qi2x7g11" path="res://the-wheel-godot/WHEEL/Assets/wheel-simple/selector.png" id="8_6cgcx"]
+[ext_resource type="Texture2D" uid="uid://bgsngvx2gvemu" path="res://the-wheel-godot/WHEEL/Assets/wheel-simple/slice1.png" id="2_hflln"]
+[ext_resource type="Texture2D" uid="uid://do6nve628fj42" path="res://the-wheel-godot/WHEEL/Assets/wheel-simple/slice2.png" id="3_tc8cr"]
+[ext_resource type="Texture2D" uid="uid://mcjmi4bhyyfd" path="res://the-wheel-godot/WHEEL/Assets/wheel-simple/slice3.png" id="4_lnuxd"]
+[ext_resource type="Texture2D" uid="uid://c58kxglsbrtpy" path="res://the-wheel-godot/WHEEL/Assets/wheel-simple/slice4.png" id="5_w8unc"]
+[ext_resource type="Texture2D" uid="uid://c7f57bkxn7noc" path="res://the-wheel-godot/WHEEL/Assets/wheel-simple/underlay.png" id="6_cgp5b"]
+[ext_resource type="Texture2D" uid="uid://742pxiqvrtvv" path="res://the-wheel-godot/WHEEL/Assets/wheel-simple/overlay.png" id="7_kuksd"]
+[ext_resource type="Texture2D" uid="uid://vykvlqf1dvc4" path="res://the-wheel-godot/WHEEL/Assets/wheel-simple/selector.png" id="8_6cgcx"]
 
 [node name="Wheel" type="Control"]
 texture_filter = 1
@@ -52,7 +52,7 @@ offset_right = 128.0
 offset_bottom = 128.0
 grow_horizontal = 2
 grow_vertical = 2
-rotation = 1.5708
+rotation = 4.71239
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("2_hflln")
 
@@ -71,7 +71,6 @@ offset_right = 128.0
 offset_bottom = 128.0
 grow_horizontal = 2
 grow_vertical = 2
-rotation = 3.14159
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("3_tc8cr")
 
@@ -90,6 +89,7 @@ offset_right = 128.0
 offset_bottom = 128.0
 grow_horizontal = 2
 grow_vertical = 2
+rotation = 1.5708
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("4_lnuxd")
 
@@ -108,7 +108,7 @@ offset_right = 128.0
 offset_bottom = 128.0
 grow_horizontal = 2
 grow_vertical = 2
-rotation = 4.71239
+rotation = 3.14159
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("5_w8unc")
 

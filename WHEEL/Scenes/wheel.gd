@@ -13,7 +13,7 @@
 
 #region Signals
 ## emitted when a new direction is selected.
-signal new_dir_selected(direction:int)
+signal new_dir_selected()
 ## emitted when a direction is chosen
 signal new_dir_chosen(payload:WheelPayload)
 ## emitted when the gimbal begins to be rotated.
@@ -155,7 +155,7 @@ func process_direction_input(direction:int)->void:
 	if _state != WheelState.AWAITING_SELECTION: return
 	selector.rotation_degrees = direction #move our selector to the direction
 	_current_value = get_current_wheel_value() #set the current wheel value to our slice and base values
-	new_dir_selected.emit(direction) # emit signal that we have moved the selector
+	new_dir_selected.emit() # emit signal that we have moved the selector
 
 ## confirms that the current selection has been chosen
 func process_confirm_input(direction:int)->void:
@@ -181,7 +181,7 @@ func rotate_slices()->void:
 	var tween:Tween = create_tween() # create our tween object we will use for the animation
 	tween.set_trans(int(tween_type)) # sets our transition type to our enum
 	tween.tween_property(%slice_gimbal, "rotation_degrees",%slice_gimbal.rotation_degrees+90,anim_time) # rotates gimbal for our specified time in anim time
-	tween.finished.connect(end_check) # runs the end_check function when the tween is done
+	tween.finished.connect(func(): rotation_finished.emit()) # runs the end_check function when the tween is done
 
 ## this function resets the minigame.
 func reset()->void:
