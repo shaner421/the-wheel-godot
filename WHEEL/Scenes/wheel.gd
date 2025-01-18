@@ -122,6 +122,7 @@ signal puzzle_finished
 func _ready()->void:
 	reset()
 	rotation_finished.connect(end_check)
+	
 
 # handles input for our minigame
 func _unhandled_input(_event: InputEvent) -> void:
@@ -141,7 +142,8 @@ func _unhandled_input(_event: InputEvent) -> void:
 	
 	# if tab is pressed, rotate the slices
 	if Input.is_action_just_pressed("ui_text_completion_replace"):
-		rotate_slices(true)
+		rotate_slices()
+		slice_value_multiplier =  _shift_array_right(slice_value_multiplier)
 	
 	# if space is pressed, confirm selection
 	if Input.is_action_just_pressed("ui_accept"):
@@ -157,6 +159,9 @@ func process_direction_input(direction:int,debug=false)->void:
 	selector.rotation_degrees = direction
 	#set the current wheel value to our slice and base values
 	_current_value = get_current_wheel_value()
+	print(_current_value.base_value)
+	print(_current_value.slice_value)
+	print(_current_value.total_value)
 	#emit new direction chosen signal
 	new_dir_chosen.emit()
 
@@ -225,8 +230,7 @@ func reset()->void:
 		for j in current_value_mappings.size():
 			if DIRECTIONS[x] == current_value_mappings[j]:
 				slice_value_multiplier[x] = x+1
-	# shuffles base numbers so each segment of wheel associates with 
-	# a random value
+	# shuffles base numbers so random wheel segments = a random base number
 	base_numbers.shuffle()
 	# sets our current wheel value
 	_current_value = get_current_wheel_value()
@@ -261,6 +265,16 @@ func get_current_wheel_value()->WheelPayload:
 #endregion
 
 #region helper functions
+# this function will help us account for rotating the gimbal.
+func _shift_array_right(arr: Array) -> Array:
+	var a = arr
+	if a.size() <= 1:
+		return [] 
+	var last_element = arr[-1]
+	a.pop_back()  # Remove the last element
+	a.push_front(last_element)  # Add it to the front
+	return a
+
 # this is all UI stuff. I got weird errors if I didn't split up the selector and overlay etc pls don't judge me.
 func _update_slices_ui(new_textures:Array[Texture2D])->void:
 	for x in slices.size():
