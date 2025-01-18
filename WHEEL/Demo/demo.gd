@@ -8,12 +8,13 @@ extends Control
 #endregion
 
 #region Internal Variables
+var background_music:AudioStream = preload("res://the-wheel-godot/WHEEL/Demo/assets/goofy_tune.wav")
 var select_sound:AudioStream = preload("res://the-wheel-godot/WHEEL/Demo/assets/selector_click.wav")
 var rotate_sound:AudioStream = preload("res://the-wheel-godot/WHEEL/Demo/assets/rotate.wav")
 var success_sound:AudioStream = preload("res://the-wheel-godot/WHEEL/Demo/assets/success.wav")
 var fail_sound:AudioStream = preload("res://the-wheel-godot/WHEEL/Demo/assets/fail.mp3")
 var current_wheel_value:int = 0
-
+var bg_msc = AudioStreamPlayer.new()
 
 var game_over = false
 
@@ -27,16 +28,16 @@ func _ready():
 	wheel.new_dir_chosen.connect(update_wheel_value)
 	# connects the dir confirmed signal to a lambda function that plays the confirm sound
 	wheel.rotation_started.connect(func():_play_sound(rotate_sound))
+	# play some tunes :)
+	_play_music(background_music)
 
 func _process(_delta: float) -> void:
 	if game_over: return
 	
 	update_text()
 	show_value(wheel._current_value.base_value)
-	
 	if wheel.num_selections == wheel.target_selections:
 		end_check(current_wheel_value)
-	
 #endregion
 
 #region Custom Functions
@@ -52,6 +53,7 @@ func end_check(wheel_val):
 		$game_overs/fail.visible = true
 		_play_sound(fail_sound)
 	game_over = true
+	bg_msc.volume_db = -200
 
 # updates our debug labels
 func update_text()->void:
@@ -97,3 +99,19 @@ func _play_sound(sound:AudioStream)->void:
 	player.play()
 	player.finished.connect(func():player.queue_free())
 #endregion
+
+func _play_music(music:AudioStream) -> void:
+	bg_msc.stream = music
+	bg_msc.pitch_scale = 1.02
+	bg_msc.volume_db = -30
+	self.add_child(bg_msc)
+	bg_msc.play()
+	bg_msc.finished.connect(func(): 
+		get_tree().create_timer(0.5).timeout
+		_play_music(background_music)
+		)
+
+
+func _on_check_box_toggled(toggled_on: bool) -> void:
+	if toggled_on: bg_msc.volume_db = -30
+	else: bg_msc.volume_db = -200

@@ -216,6 +216,12 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "[slice multipliers]"
 
+[node name="CheckBox" type="CheckBox" parent="text"]
+layout_mode = 2
+focus_mode = 0
+button_pressed = true
+text = "Background Music"
+
 [node name="game_overs" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -223,6 +229,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="pass" type="Control" parent="game_overs"]
 visible = false
@@ -321,3 +328,5 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("8_kwgq4")
 expand_mode = 1
+
+[connection signal="toggled" from="text/CheckBox" to="." method="_on_check_box_toggled"]
