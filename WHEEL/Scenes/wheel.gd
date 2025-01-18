@@ -57,19 +57,19 @@ enum TweenType {
 	set(value):
 		underlay_texture = value
 		if Engine.is_editor_hint():
-			_update_underlay_ui(underlay_texture)
+			_update_node_ui(get_node_or_null("%underlay"),underlay_texture)
 ## the overlay texture.
 @export var overlay_texture:Texture2D = preload("res://the-wheel-godot/WHEEL/Assets/wheel-placeholder/overlay.png"):
 	set(value):
 		overlay_texture = value
 		if Engine.is_editor_hint():
-			_update_overlay_ui(overlay_texture)
+			_update_node_ui(get_node_or_null("%overlay"),underlay_texture)
 ## the selector texture.
 @export var selector_texture:Texture2D = preload("res://the-wheel-godot/WHEEL/Assets/wheel-placeholder/selector.png"):
 	set(value):
 		selector_texture = value
 		if Engine.is_editor_hint():
-			_update_selector_ui(selector_texture)
+			_update_node_ui(get_node_or_null("%selector"),underlay_texture)
 #endregion
 
 #region Onready Variables
@@ -108,6 +108,8 @@ const DIRECTIONS:Array[int] = [0,90,180,270]
 
 #region Signals
 ## emitted when a new direction is selected.
+signal new_dir_selected
+## emitted when a direction is chosen
 signal new_dir_chosen
 ## emitted when the gimbal begins to be rotated.
 signal rotation_started
@@ -143,7 +145,8 @@ func _unhandled_input(_event: InputEvent) -> void:
 	# if tab is pressed, rotate the slices
 	if Input.is_action_just_pressed("ui_text_completion_replace"):
 		rotate_slices()
-		slice_value_multiplier =  _shift_array_right(slice_value_multiplier)
+		
+		
 	
 	# if space is pressed, confirm selection
 	if Input.is_action_just_pressed("ui_accept"):
@@ -159,11 +162,7 @@ func process_direction_input(direction:int,debug=false)->void:
 	selector.rotation_degrees = direction
 	#set the current wheel value to our slice and base values
 	_current_value = get_current_wheel_value()
-	print(_current_value.base_value)
-	print(_current_value.slice_value)
-	print(_current_value.total_value)
-	#emit new direction chosen signal
-	new_dir_chosen.emit()
+	new_dir_selected.emit()
 
 ## confirms that the current selection has been chosen
 func process_confirm_input(direction:int,debug=false)->void:
@@ -182,19 +181,22 @@ func process_confirm_input(direction:int,debug=false)->void:
 			# set cover to visible
 			x.visible = true 
 			# set the number of selections +=1
-			current_num_selections += 1 
+			current_num_selections += 1
+			# emit signal showing we selected that region
+			new_dir_chosen.emit()
 			# rotate the gimbal
 			rotate_slices()
 			# exit out if the cover has been found
 			return 
 
 ## rotates the slice gimbal +90 degrees
-func rotate_slices(debug=false)->void:
+func rotate_slices()->void:
 	# if we aren't awaiting a selection, don't rotate
 	if current_wheel_state != WheelState.AWAITING_SELECTION:
 		return
-	# prints debug info if enabled
-	if debug: print("rotating gimbal +90 degrees\n")
+	# +90 to each of our current value mappings
+	current_value_mappings = _rotate_array(current_value_mappings)
+	_current_value = get_current_wheel_value()
 	# set the current wheel state to show it is rotating
 	current_wheel_state = WheelState.ROTATING
 	# emit rotation started signal
@@ -265,25 +267,32 @@ func get_current_wheel_value()->WheelPayload:
 #endregion
 
 #region helper functions
-# this function will help us account for rotating the gimbal.
-func _shift_array_right(arr: Array) -> Array:
-	var a = arr
-	if a.size() <= 1:
-		return [] 
-	var last_element = arr[-1]
-	a.pop_back()  # Remove the last element
-	a.push_front(last_element)  # Add it to the front
+# this function allows our current value mappings to adjust if we rotate 
+func _rotate_array(arr:Array)->Array:
+	var a:Array = arr
+	# saves where our base numbers are so we can make sure they match up after rotating
+	var base_number_map = {a[0]:base_numbers[0],a[1]:base_numbers[1],a[2]:base_numbers[2],a[3]:base_numbers[3]}
+	for x in a.size():
+		# add 90 degrees to each value mapping
+		a[x] += 90
+		if int(a[x]) == 360:
+			# wrap values back to 0 
+			a[x] = 0
+		# makes sure our base numbers stay the same
+		base_numbers[x] = base_number_map.get(a[x])
 	return a
 
-# this is all UI stuff. I got weird errors if I didn't split up the selector and overlay etc pls don't judge me.
+# this is all UI stuff. 
 func _update_slices_ui(new_textures:Array[Texture2D])->void:
+	# this assumes you will have the same amount of covers as slices. idk why you wouldn't.
 	for x in slices.size():
+		#update our slices with the new texture
 		slices[x].texture = new_textures[x]
 		slices[x].pivot_offset = Vector2(new_textures[x].get_size().x/2,new_textures[x].get_size().y/2)
 		slices[x].position = Vector2.ZERO
 		slices[x].set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 		slices[x].size = new_textures[x].get_size()
-	for x in covers.size():
+		# set our covers to the biggest slice at a modulate and update
 		covers[x].texture = new_textures[3]
 		covers[x].modulate = Color("000000a8")
 		covers[x].pivot_offset = Vector2(Vector2(new_textures[3].get_size().x/2,new_textures[3].get_size().y/2))
@@ -291,28 +300,14 @@ func _update_slices_ui(new_textures:Array[Texture2D])->void:
 		covers[x].set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 		covers[x].size = new_textures[3].get_size()
 
-func _update_selector_ui(new_texture:Texture2D)->void:
-	var node:=%wheel_select
+func _update_node_ui(node:Control,new_texture:Texture2D)->void:
+	if node==null:
+		return
 	node.texture = new_texture
 	node.pivot_offset = Vector2(new_texture.get_size().x/2,new_texture.get_size().y/2)
 	node.position = Vector2.ZERO
 	node.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	node.size = new_texture.get_size()
-func _update_overlay_ui(new_texture:Texture2D)->void:
-	var node:=%overlay
-	node.texture = new_texture
-	node.pivot_offset = Vector2(new_texture.get_size().x/2,new_texture.get_size().y/2)
-	node.position = Vector2.ZERO
-	node.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	node.size = new_texture.get_size()
-func _update_underlay_ui(new_texture:Texture2D)->void:
-	var node:=%underlay
-	node.texture = new_texture
-	node.pivot_offset = Vector2(new_texture.get_size().x/2,new_texture.get_size().y/2)
-	node.position = Vector2.ZERO
-	node.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	node.size = new_texture.get_size()
-
 #endregion
 
 #region WheelPayload Class

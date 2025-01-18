@@ -9,23 +9,18 @@
 [ext_resource type="Texture2D" uid="uid://c1dsywoovggy1" path="res://the-wheel-godot/WHEEL/Assets/wheel-simple/overlay.png" id="7_kuksd"]
 [ext_resource type="Texture2D" uid="uid://dgv35qi2x7g11" path="res://the-wheel-godot/WHEEL/Assets/wheel-simple/selector.png" id="8_6cgcx"]
 
-[node name="CanvasLayer" type="CanvasLayer"]
-
-[node name="Wheel" type="Control" parent="."]
-unique_name_in_owner = true
+[node name="Wheel" type="Control"]
 texture_filter = 1
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 3
 anchors_preset = 0
-scale = Vector2(0.6, 0.6)
 script = ExtResource("1_jnbfk")
-wheel_scale = 0.6
 slice_textures = Array[Texture2D]([ExtResource("2_hflln"), ExtResource("3_tc8cr"), ExtResource("4_lnuxd"), ExtResource("5_w8unc")])
 underlay_texture = ExtResource("6_cgp5b")
 overlay_texture = ExtResource("7_kuksd")
 selector_texture = ExtResource("8_6cgcx")
 
-[node name="slice_gimbal" type="Control" parent="Wheel"]
+[node name="slice_gimbal" type="Control" parent="."]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 1
@@ -42,7 +37,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(32, 32)
 
-[node name="slice1" type="TextureRect" parent="Wheel/slice_gimbal"]
+[node name="slice1" type="TextureRect" parent="slice_gimbal"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 1
@@ -61,7 +56,7 @@ rotation = 1.5708
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("2_hflln")
 
-[node name="slice2" type="TextureRect" parent="Wheel/slice_gimbal"]
+[node name="slice2" type="TextureRect" parent="slice_gimbal"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 1
@@ -80,7 +75,7 @@ rotation = 3.14159
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("3_tc8cr")
 
-[node name="slice3" type="TextureRect" parent="Wheel/slice_gimbal"]
+[node name="slice3" type="TextureRect" parent="slice_gimbal"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 1
@@ -98,7 +93,7 @@ grow_vertical = 2
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("4_lnuxd")
 
-[node name="slice4" type="TextureRect" parent="Wheel/slice_gimbal"]
+[node name="slice4" type="TextureRect" parent="slice_gimbal"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 1
@@ -117,7 +112,7 @@ rotation = 4.71239
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("5_w8unc")
 
-[node name="underlay" type="TextureRect" parent="Wheel/slice_gimbal"]
+[node name="underlay" type="TextureRect" parent="slice_gimbal"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -134,7 +129,7 @@ grow_vertical = 2
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("6_cgp5b")
 
-[node name="wheel" type="Control" parent="Wheel"]
+[node name="wheel" type="Control" parent="."]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -149,7 +144,7 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="overlay" type="TextureRect" parent="Wheel/wheel"]
+[node name="overlay" type="TextureRect" parent="wheel"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -166,7 +161,7 @@ grow_vertical = 2
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("7_kuksd")
 
-[node name="covers" type="Control" parent="Wheel"]
+[node name="covers" type="Control" parent="."]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -181,7 +176,7 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="cover_up" type="TextureRect" parent="Wheel/covers"]
+[node name="cover_up" type="TextureRect" parent="covers"]
 unique_name_in_owner = true
 visible = false
 modulate = Color(0, 0, 0, 0.658824)
@@ -201,7 +196,7 @@ grow_vertical = 2
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("5_w8unc")
 
-[node name="cover_right" type="TextureRect" parent="Wheel/covers"]
+[node name="cover_right" type="TextureRect" parent="covers"]
 unique_name_in_owner = true
 visible = false
 modulate = Color(0, 0, 0, 0.658824)
@@ -222,7 +217,7 @@ rotation = 1.5708
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("5_w8unc")
 
-[node name="cover_down" type="TextureRect" parent="Wheel/covers"]
+[node name="cover_down" type="TextureRect" parent="covers"]
 unique_name_in_owner = true
 visible = false
 modulate = Color(0, 0, 0, 0.658824)
@@ -243,7 +238,7 @@ rotation = 3.14159
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("5_w8unc")
 
-[node name="cover_left" type="TextureRect" parent="Wheel/covers"]
+[node name="cover_left" type="TextureRect" parent="covers"]
 unique_name_in_owner = true
 visible = false
 modulate = Color(0, 0, 0, 0.658824)
@@ -264,7 +259,7 @@ rotation = 4.71239
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("5_w8unc")
 
-[node name="wheel_select" type="TextureRect" parent="Wheel"]
+[node name="wheel_select" type="TextureRect" parent="."]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 1
