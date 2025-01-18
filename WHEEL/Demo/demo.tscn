@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://the-wheel-godot/WHEEL/Demo/demo.gd" id="1_ix3go"]
 [ext_resource type="PackedScene" uid="uid://ynmfrkjnnm6r" path="res://the-wheel-godot/WHEEL/Scenes/wheel.tscn" id="1_yl2td"]
-[ext_resource type="Texture2D" uid="uid://yt8xl8v3f0an" path="res://the-wheel-godot/WHEEL/Demo/assets/2.png" id="3_4ax5b"]
-[ext_resource type="Texture2D" uid="uid://bgiqs1qyhi06h" path="res://the-wheel-godot/WHEEL/Demo/assets/1.png" id="4_wb6yf"]
-[ext_resource type="Texture2D" uid="uid://cxb70w6q5fjnf" path="res://the-wheel-godot/WHEEL/Demo/assets/-1.png" id="5_3x7gt"]
-[ext_resource type="Texture2D" uid="uid://ickkiyfig4c1" path="res://the-wheel-godot/WHEEL/Demo/assets/-2.png" id="6_abb3s"]
+[ext_resource type="Texture2D" uid="uid://1cl1src28wao" path="res://the-wheel-godot/WHEEL/Demo/assets/2.png" id="3_4ax5b"]
+[ext_resource type="Texture2D" uid="uid://l77pyommmo3y" path="res://the-wheel-godot/WHEEL/Demo/assets/1.png" id="4_wb6yf"]
+[ext_resource type="Texture2D" uid="uid://d01rvjco1og2l" path="res://the-wheel-godot/WHEEL/Demo/assets/-1.png" id="5_3x7gt"]
+[ext_resource type="Texture2D" uid="uid://bm4k7jllmeuqs" path="res://the-wheel-godot/WHEEL/Demo/assets/-2.png" id="6_abb3s"]
 
 [node name="test" type="Control"]
 layout_mode = 3

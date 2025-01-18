@@ -19,6 +19,7 @@ var current_wheel_value:int = 0
 func _ready():
 	# connects the new dir chosen signal to a lambda function that plays the selector sound 
 	wheel.new_dir_selected.connect(func():if wheel.current_num_selections != wheel.target_selections: _play_sound(select_sound))
+	# connects our new dir chosen signal to the update wheel value function
 	wheel.new_dir_chosen.connect(update_wheel_value)
 	# connects the dir confirmed signal to a lambda function that plays the confirm sound
 	wheel.rotation_started.connect(func():_play_sound(rotate_sound))
@@ -29,8 +30,9 @@ func _process(_delta: float) -> void:
 #endregion
 
 #region Custom Functions
-func update_wheel_value():
-	current_wheel_value += wheel._current_value.total_value
+# the new_dir_chosen signal passes the current wheel value of the chosen segment
+func update_wheel_value(_current_value):
+	current_wheel_value += _current_value.total_value
 
 func end_check():
 	pass
