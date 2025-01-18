@@ -4,7 +4,7 @@ extends Control
 
 
 #region Onready Variables
-@onready var wheel:Control = %WHEEL
+@onready var wheel:Wheel = $Wheel
 #endregion
 
 #region Internal Variables
@@ -45,6 +45,7 @@ func _process(_delta: float) -> void:
 func update_wheel_value(_current_value):
 	current_wheel_value += _current_value.total_value
 
+# shows pass or fail UI if the wheel value is > or < 0
 func end_check(wheel_val):
 	if wheel_val > 0:
 		$game_overs/pass.visible = true
@@ -98,8 +99,8 @@ func _play_sound(sound:AudioStream)->void:
 	self.add_child(player)
 	player.play()
 	player.finished.connect(func():player.queue_free())
-#endregion
 
+# plays the background music in a loop dependant on the checkbox enabling it.
 func _play_music(music:AudioStream) -> void:
 	bg_msc.stream = music
 	bg_msc.pitch_scale = 1.02
@@ -112,7 +113,17 @@ func _play_music(music:AudioStream) -> void:
 		_play_music(background_music)
 		)
 
-
-func _on_check_box_toggled(toggled_on: bool) -> void:
+# signal function for turning off/on bg music
+func _on_music_checkbox_toggled(toggled_on: bool) -> void:
 	if toggled_on: bg_msc.volume_db = -30
 	else: bg_msc.volume_db = -200
+# signal function for turning debug text on/off
+func _on_debug_checkbox_toggled(toggled_on: bool) -> void:
+	$"text/wheel value".visible = toggled_on
+	$"text/slice value".visible = toggled_on
+	$"text/base value".visible = toggled_on
+	$"text/num selections".visible = toggled_on
+	$"text/value mappings".visible = toggled_on
+	$"text/base values".visible = toggled_on
+	$"text/slice multipliers".visible = toggled_on
+#endregion

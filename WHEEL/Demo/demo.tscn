@@ -82,7 +82,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.844033, 0.158939, 0.225471, 1)
 
-[node name="WHEEL" parent="." instance=ExtResource("1_yl2td")]
+[node name="Wheel" parent="." instance=ExtResource("1_yl2td")]
 unique_name_in_owner = true
 
 [node name="values" type="Control" parent="."]
@@ -100,6 +100,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="2" type="TextureRect" parent="values"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -176,51 +177,87 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -131.0
-offset_right = 1016.0
+offset_left = 12.0
+offset_top = -255.0
+offset_right = 343.0
 grow_vertical = 0
-alignment = 1
+alignment = 2
 
 [node name="wheel value" type="Label" parent="text"]
+visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "[Slice Value]"
 
 [node name="slice value" type="Label" parent="text"]
+visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "[Slice Value]"
 
 [node name="base value" type="Label" parent="text"]
+visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "[Base Value]"
 
 [node name="num selections" type="Label" parent="text"]
+visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "[selections]"
 
 [node name="value mappings" type="Label" parent="text"]
+visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "[value mappings]"
 
 [node name="base values" type="Label" parent="text"]
+visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "[base values]"
 
 [node name="slice multipliers" type="Label" parent="text"]
+visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "[slice multipliers]"
 
-[node name="CheckBox" type="CheckBox" parent="text"]
+[node name="debug_checkbox" type="CheckBox" parent="text"]
+layout_mode = 2
+focus_mode = 0
+text = "Show Debug Stats"
+
+[node name="music_checkbox" type="CheckBox" parent="text"]
 layout_mode = 2
 focus_mode = 0
 button_pressed = true
 text = "Background Music"
+
+[node name="instructions" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -303.0
+offset_top = -255.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 1
+
+[node name="inst" type="Label" parent="instructions"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Controls:
+
+Arrow Keys: Move selection on wheel
+Tab: Rotate Wheel
+Space: Confirm selection on wheel"
 
 [node name="game_overs" type="Control" parent="."]
 layout_mode = 1
@@ -329,4 +366,5 @@ grow_vertical = 2
 texture = ExtResource("8_kwgq4")
 expand_mode = 1
 
-[connection signal="toggled" from="text/CheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="toggled" from="text/debug_checkbox" to="." method="_on_debug_checkbox_toggled"]
+[connection signal="toggled" from="text/music_checkbox" to="." method="_on_music_checkbox_toggled"]

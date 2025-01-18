@@ -4,5 +4,4 @@ The WHEEL (Godot Edition) is an open source implementation of the persuasion whe
 
 **HOW TO USE:**
 
-Place the "Wheel" folder in an existing godot 4 project. 
-
+Place the "the-wheel-godot" folder in an existing godot 4 project. 
