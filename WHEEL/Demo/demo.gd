@@ -10,8 +10,12 @@ extends Control
 #region Internal Variables
 var select_sound:AudioStream = preload("res://the-wheel-godot/WHEEL/Demo/assets/selector_click.wav")
 var rotate_sound:AudioStream = preload("res://the-wheel-godot/WHEEL/Demo/assets/rotate.wav")
+var success_sound:AudioStream = preload("res://the-wheel-godot/WHEEL/Demo/assets/success.wav")
+var fail_sound:AudioStream = preload("res://the-wheel-godot/WHEEL/Demo/assets/fail.mp3")
 var current_wheel_value:int = 0
 
+
+var game_over = false
 
 #endregion
 
@@ -25,8 +29,14 @@ func _ready():
 	wheel.rotation_started.connect(func():_play_sound(rotate_sound))
 
 func _process(_delta: float) -> void:
+	if game_over: return
+	
 	update_text()
 	show_value(wheel._current_value.base_value)
+	
+	if wheel.num_selections == wheel.target_selections:
+		end_check(current_wheel_value)
+	
 #endregion
 
 #region Custom Functions
@@ -34,8 +44,14 @@ func _process(_delta: float) -> void:
 func update_wheel_value(_current_value):
 	current_wheel_value += _current_value.total_value
 
-func end_check():
-	pass
+func end_check(wheel_val):
+	if wheel_val > 0:
+		$game_overs/pass.visible = true
+		_play_sound(success_sound)
+	else:
+		$game_overs/fail.visible = true
+		_play_sound(fail_sound)
+	game_over = true
 
 # updates our debug labels
 func update_text()->void:
