@@ -41,18 +41,18 @@ signal puzzle_finished
 @export_group("Animations")
 ## controls the animation of the rotation of the wheel.
 enum TweenType {
-	TRANS_LINEAR,
-	TRANS_SINE,
-	TRANS_QUINT,
-	TRANS_QUART,
-	TRANS_QUAD,
-	TRANS_EXPO,
-	TRANS_ELASTIC,
-	TRANS_CUBIC,
-	TRANS_CIRC,
-	TRANS_BOUNCE,
-	TRANS_BACK,
-	TRANS_SPRING
+	TRANS_LINEAR, ## linear animation.
+	TRANS_SINE, ## sine animation.
+	TRANS_QUINT, ## quint animation.
+	TRANS_QUART, ## quart animation.
+	TRANS_QUAD, ## quad animation.
+	TRANS_EXPO, ## expo animation.
+	TRANS_ELASTIC, ## elastic animation.
+	TRANS_CUBIC, ## cubic animation.
+	TRANS_CIRC, ## circ animation.
+	TRANS_BOUNCE, ## bounce animation.
+	TRANS_BACK, ## back animation.
+	TRANS_SPRING ## spring animation.
 	}
 @export var tween_type:TweenType = TweenType.TRANS_CIRC
 ## controls how long the rotation animation will play for.
@@ -128,15 +128,14 @@ func _ready()->void:
 # handles input for our minigame
 func _unhandled_input(_event: InputEvent) -> void:
 	if _state != WheelState.AWAITING_SELECTION: return
-	# if space is pressed, confirm selection
-	if Input.is_action_just_pressed("ui_accept"):
+
+	if Input.is_action_just_pressed("ui_accept"): # ui_accept is spacebar
 		process_confirm_input(current_direction)
-	# if tab is pressed, rotate the slices
-	if Input.is_action_just_pressed("ui_text_completion_replace"):
+	if Input.is_action_just_pressed("ui_text_completion_replace"):  # ui_text_completion_replace is tab
 		rotate_slices()
 	
 	# if up, down, left or right is pressed, process that direction input
-	if Input.is_action_just_pressed("ui_up"):
+	if Input.is_action_just_pressed("ui_up"): 
 		current_direction=0
 		process_direction_input(current_direction)
 	if Input.is_action_just_pressed("ui_down"):
