@@ -191,13 +191,11 @@ func reset()->void:
 	%slice_gimbal.rotation_degrees = 0 # resets gimbal
 	num_selections = 0 # resets number of selections that have been chosen
 	for x:Control in covers: x.visible = false # hides the covers
-	
-	current_value_mappings.shuffle() # chooses a random order for our value mappings
-	for x:int in current_value_mappings.size(): # sets the slice rotations to our value mappings
-		slices[x].rotation_degrees = current_value_mappings[x]
 
+	current_value_mappings.shuffle() # chooses a random order for our value mappings
 	for x:int in DIRECTIONS.size(): # assigns the slice value to the direction of the corresponding slice
 		for j:int in current_value_mappings.size():
+			slices[j].rotation_degrees = current_value_mappings[j]  # sets the slice rotations to our value mappings
 			if DIRECTIONS[x] == current_value_mappings[j]:
 				slice_values[x] = x+1
 
