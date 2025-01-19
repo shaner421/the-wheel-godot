@@ -244,20 +244,37 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -303.0
+offset_left = -433.0
 offset_top = -255.0
 grow_horizontal = 0
 grow_vertical = 0
 alignment = 1
 
-[node name="inst" type="Label" parent="instructions"]
+[node name="HBoxContainer" type="HBoxContainer" parent="instructions"]
+layout_mode = 2
+
+[node name="inst" type="Label" parent="instructions/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "Controls:
 
-Arrow Keys: Move selection on wheel
-Tab: Rotate Wheel
-Space: Confirm selection on wheel"
+Arrow Keys: 
+Tab: 
+Space: "
+horizontal_alignment = 2
+
+[node name="spacer" type="Label" parent="instructions/HBoxContainer"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="inst2" type="Label" parent="instructions/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "
+
+Move selection on wheel
+Rotate Wheel
+Confirm selection on wheel"
 
 [node name="game_overs" type="Control" parent="."]
 layout_mode = 1

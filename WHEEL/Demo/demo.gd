@@ -14,7 +14,7 @@ var rotate_sound:AudioStream = preload("res://the-wheel-godot/WHEEL/Demo/assets/
 var success_sound:AudioStream = preload("res://the-wheel-godot/WHEEL/Demo/assets/success.wav")
 var fail_sound:AudioStream = preload("res://the-wheel-godot/WHEEL/Demo/assets/fail.mp3")
 var current_wheel_value:int = 0
-var bg_msc = AudioStreamPlayer.new()
+var bg_msc:AudioStreamPlayer
 
 var game_over = false
 
@@ -102,11 +102,12 @@ func _play_sound(sound:AudioStream)->void:
 
 # plays the background music in a loop dependant on the checkbox enabling it.
 func _play_music(music:AudioStream) -> void:
+	if bg_msc == null:
+		bg_msc = AudioStreamPlayer.new()
+		self.add_child(bg_msc)
 	bg_msc.stream = music
 	bg_msc.pitch_scale = 1.02
 	bg_msc.volume_db = -30
-	if bg_msc != null:
-		self.add_child(bg_msc)
 	bg_msc.play()
 	bg_msc.finished.connect(func(): 
 		await get_tree().create_timer(1.0).timeout
