@@ -69,17 +69,17 @@ enum TweenType {
 	set(value):
 		underlay_texture = value
 		if Engine.is_editor_hint():
-			_update_node_ui(get_node_or_null("%underlay"),underlay_texture)
+			_update_node_ui(get_node_or_null("slice_gimbal/underlay"),underlay_texture)
 @export var overlay_texture:Texture2D = preload("res://the-wheel-godot/Assets/wheel-placeholder/overlay.png"):
 	set(value):
 		overlay_texture = value
 		if Engine.is_editor_hint():
-			_update_node_ui(get_node_or_null("%overlay"),underlay_texture)
+			_update_node_ui(get_node_or_null("wheel/overlay"),overlay_texture)
 @export var selector_texture:Texture2D = preload("res://the-wheel-godot/Assets/wheel-placeholder/selector.png"):
 	set(value):
 		selector_texture = value
 		if Engine.is_editor_hint():
-			_update_node_ui(get_node_or_null("%selector"),underlay_texture)
+			_update_node_ui(get_node_or_null("selector"),selector_texture)
 #endregion
 
 #region Onready Variables
