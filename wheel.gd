@@ -55,22 +55,27 @@ enum TweenType {
 @export_range(0,2,0.05) var anim_time= 0.3 ## controls how long the rotation animation will play for.
 
 @export_group("Textures")
-@export var slice_textures:Array[Texture2D] = []: ## an array of slice textures. order is [slice1,slice2,slice3,slice4] (smallest to largest)
+@export var slice_textures:Array[Texture2D] = [
+	preload("uid://d26cocb7f5biu"),
+	preload("uid://b26d46otswkev"),
+	preload("uid://b62c2x3fpqy2g"),
+	preload("uid://cibvjji04v87m")
+]: ## an array of slice textures. order is [slice1,slice2,slice3,slice4] (smallest to largest)
 	set(value):
 		slice_textures = value
 		if Engine.is_editor_hint():
 			_update_slices_ui(value)
-@export var underlay_texture:Texture2D = preload("res://the-wheel-godot/Assets/wheel-placeholder/underlay.png"):
+@export var underlay_texture:Texture2D = preload("uid://dq2c0cj6havec"):
 	set(value):
 		underlay_texture = value
 		if Engine.is_editor_hint():
 			_update_node_ui(get_node_or_null("slice_gimbal/underlay"),underlay_texture)
-@export var overlay_texture:Texture2D = preload("res://the-wheel-godot/Assets/wheel-placeholder/overlay.png"):
+@export var overlay_texture:Texture2D = preload("uid://cqsjo7cxeno47"):
 	set(value):
 		overlay_texture = value
 		if Engine.is_editor_hint():
 			_update_node_ui(get_node_or_null("wheel/overlay"),overlay_texture)
-@export var selector_texture:Texture2D = preload("res://the-wheel-godot/Assets/wheel-placeholder/selector.png"):
+@export var selector_texture:Texture2D = preload("uid://bj1ti43o3pgnc"):
 	set(value):
 		selector_texture = value
 		if Engine.is_editor_hint():

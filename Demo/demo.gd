@@ -8,11 +8,11 @@ extends Control
 #endregion
 
 #region Internal Variables
-var background_music:AudioStream = preload("res://the-wheel-godot/Demo/assets/goofy_tune.wav")
-var select_sound:AudioStream = preload("res://the-wheel-godot/Demo/assets/selector_click.wav")
-var rotate_sound:AudioStream = preload("res://the-wheel-godot/Demo/assets/rotate.wav")
-var success_sound:AudioStream = preload("res://the-wheel-godot/Demo/assets/success.wav")
-var fail_sound:AudioStream = preload("res://the-wheel-godot/Demo/assets/fail.mp3")
+var background_music:AudioStream = preload("uid://0g3hbfl4uosc")
+var select_sound:AudioStream = preload("uid://cxg4q58es2u77")
+var rotate_sound:AudioStream = preload("uid://c43qhby2kqxxj")
+var success_sound:AudioStream = preload("uid://bd4rwxqynrent")
+var fail_sound:AudioStream = preload("uid://pcg4xnx3rd1t")
 var current_wheel_value:int = 0
 var bg_msc:AudioStreamPlayer
 
